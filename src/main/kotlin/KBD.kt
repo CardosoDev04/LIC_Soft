@@ -34,3 +34,4 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
 fun main(){
     KBD.init()
 }
+//

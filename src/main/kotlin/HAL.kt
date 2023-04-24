@@ -46,3 +46,4 @@ object HAL { // Virtualiza o acesso ao sistema UsbPort
         }
     }
 }
+//
