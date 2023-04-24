@@ -37,4 +37,12 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
     }
 
 
+
+
+}
+
+fun main(){
+    HAL.init()
+    SerialEmitter.init()
+    SerialEmitter.send(SerialEmitter.Destination.LCD,10101)
 }
