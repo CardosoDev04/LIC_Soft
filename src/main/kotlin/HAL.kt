@@ -7,6 +7,9 @@ object HAL { // Virtualiza o acesso ao sistema UsbPort
     // Inicia a classe
     fun init() {
 
+        x = 0
+        UsbPort.write(x)
+
     }
 
     // Retorna true se o bit tiver o valor lógico ‘1’
@@ -27,18 +30,19 @@ object HAL { // Virtualiza o acesso ao sistema UsbPort
     }
     // Coloca os bits representados por mask no valor lógico ‘1’
     fun setBits(mask: Int) {
-        if(isBit(mask)){
-            UsbPort.write(1)
-        }
+        x = x or mask
+        UsbPort.write(x)
     }
     // Coloca os bits representados por mask no valor lógico ‘0’
     fun clrBits(mask: Int) {
-        if(isBit(mask)){
-            UsbPort.write(0)
-        }
+        x = x and mask.inv()
+        UsbPort.write(x)
     }
 
     fun main() {
-
+        while(true){
+            val value = UsbPort.read()
+            UsbPort.write(value)
+        }
     }
 }

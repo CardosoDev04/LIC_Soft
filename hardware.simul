@@ -7,9 +7,9 @@ lcd = LCD
 # KeyBoard Reader
 # --------------------------------------
 1 -> kbd.oe
-kbd.K[0-3] -> UsbPort.I[1-4]
-kbd.kVal -> UsbPort.I0
-UsbPort.O7 -> kbd.kAck
+kbd.K[0-3] -> UsbPort.I[0-3]
+kbd.val -> UsbPort.I4
+UsbPort.O4 -> kbd.ack
 
 # --------------------------------------
 # LCD
