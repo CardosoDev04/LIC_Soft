@@ -18,7 +18,17 @@ object LCD {
 
     // Escreve um nibble de comando/dados no LCD em série
     private fun writeNibbleSerial(rs: Boolean, data: Int){
-        TODO()
+        if(rs){
+            val shifted = data.shl(1)
+            HAL.setBits(shifted)
+            SerialEmitter.send(SerialEmitter.Destination.LCD,shifted)
+        }
+        else {
+            val shifted = data.shl(1)
+            HAL.clrBits(shifted)
+            SerialEmitter.send(SerialEmitter.Destination.LCD, shifted)
+
+        }
     }
 
 
