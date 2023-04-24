@@ -18,7 +18,16 @@ object LCD {
 
     // Escreve um nibble de comando/dados no LCD em série
     private fun writeNibbleSerial(rs: Boolean, data: Int){
-        TODO()
+        if(rs){
+            val shifted = data.shl(1)
+            SerialEmitter.send(SerialEmitter.Destination.LCD,shifted or 1)
+        }
+        else {
+            val shifted = data.shl(1)
+            SerialEmitter.send(SerialEmitter.Destination.LCD, shifted)
+
+        }
+        //
     }
 
 
@@ -81,7 +90,7 @@ fun init() {
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
-        TODO()
+        LCD.write("")
     }
 
 
@@ -89,7 +98,7 @@ fun init() {
 
 fun main(){
     LCD.init()
-    LCD.write("Bo ca tinha nada")
+    LCD.write("Bo ")
 
 
 
