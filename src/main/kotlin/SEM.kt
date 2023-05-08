@@ -33,7 +33,7 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
 
     // Retorna true se o canal série estiver ocupado
     fun isBusy(): Boolean {
-        TODO()
+        return isSerial
     }
 
 
