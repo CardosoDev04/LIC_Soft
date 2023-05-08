@@ -13,14 +13,14 @@ object Doormechanism { // Controla o estado do mecanismo de abertura da porta.
         // Envia comando para abrir a porta, com o parâmetro de velocidade
         fun open(velocity: Int) {
             OC = 1
-            var cmd = (OC.toString() + velocity.toString()).toInt()
-            SerialEmitter.send(SerialEmitter.Destination.DOOR,cmd)
+            var cmd = velocity.shl(1)
+            SerialEmitter.send(SerialEmitter.Destination.DOOR,cmd or OC)
 
         }
 
         // Envia comando para fechar a porta, com o parâmetro de velocidade
         fun close(velocity: Int) {
-            var cmd = (OC.toString() + velocity.toString()).toInt()
+            var cmd = velocity.shl(1)
             SerialEmitter.send(SerialEmitter.Destination.DOOR,cmd)
         }
 
