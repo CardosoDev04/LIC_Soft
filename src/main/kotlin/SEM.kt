@@ -3,6 +3,7 @@ const val SS= 0x20
 const val SDX = 0x80
 const val SCLK = 0x40
 
+
 object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiver.
     enum class Destination { LCD, DOOR }
 
@@ -33,7 +34,7 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
 
     // Retorna true se o canal série estiver ocupado
     fun isBusy(): Boolean {
-        return isSerial
+        return HAL.readBits(SS) == 1
     }
 
 
