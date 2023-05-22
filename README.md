@@ -22,3 +22,9 @@ The development of this project was entirely done during the second semester of 
 - [Tiago Gonçalves](https://github.com/Tiago50474)
 - [André Brito](https://github.com/AndreBrito1298)
 
+
+
+
+
+(Note: BuildTools is the version control alias of CardosoDev04)
+
