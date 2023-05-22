@@ -1,11 +1,7 @@
 import isel.leic.utils.Time
-import isel.leic.utils.*
 const val MSK = 0x0F
 var isSerial = false
 object LCD {
-    private const val LINES = 2
-    private const val COLS = 16
-    var isByte = false
 
     // Escreve um nibble de comando/dados no LCD em paralelo
     private fun writeNibbleParallel(rs: Boolean, data: Int){
@@ -85,7 +81,8 @@ fun init() {
 
     // Envia comando para posicionar cursor (‘line’:0..LINES-1 , ‘column’:0..COLS-1)
     fun cursor(line: Int, column: Int) {
-        TODO()
+        val data = (line * 4 + 8)*16 + column
+        writeByte(false,data)
     }
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
@@ -98,8 +95,7 @@ fun init() {
 
 fun main(){
     LCD.init()
-    LCD.write("Bo ")
-
+    LCD.write("Bo ca bali nada")
 
 
 }

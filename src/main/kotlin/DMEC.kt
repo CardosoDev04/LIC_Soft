@@ -5,8 +5,6 @@ object Doormechanism { // Controla o estado do mecanismo de abertura da porta.
         // Inicia a classe, estabelecendo os valores iniciais.
         fun init() {
             OC = 0
-            var HAL = HAL
-            var SEM = SerialEmitter
         }
 
     //1 + velocity or 0 + velocity
