@@ -13,7 +13,7 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
-    fun getKey(): Char {
+    fun getKey(): Char { // Executa a rotina de ler a key, de acordo com o diagrama temporal
         val key = HAL.readBits(KMSK)
 
         if (HAL.isBit(KVAL_MSK)) {
@@ -21,15 +21,15 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
             while (HAL.isBit(KVAL_MSK)) {
             }
             HAL.clrBits(KACK_MSK)
-            return digits[key.shr(1)]
+            return digits[key.shr(1)]  // Vai buscar o digito em questão ao array de digitos
         }
         return NONE.toChar()
     }
 
     // Retorna a tecla premida, caso ocorra antes do ‘timeout’ (representado em milissegundos), ou NONE caso contrário.
     fun waitKey(timeout: Long): Char {
-        val t = Time.getTimeInMillis()
-        while (Time.getTimeInMillis() - t < timeout) {
+        val t = Time.getTimeInMillis()  // Valor atual de tempo
+        while (Time.getTimeInMillis() - t < timeout) {  // Enquanto o tempo passado for inferior ao timeout, vai se buscar a key.
             val key = getKey()
             if (key != NONE.toChar()) return key
         }

@@ -3,13 +3,13 @@ import kotlin.math.log
 
 data class TrustedUser(val id: Int, val pin: Int)
 
-var invalidLog = false
+var invalidLog = false // Variável que é alterada para true se o login for inválido
 
 val trusted = TrustedUser(0, 1234) // Hardcode do utilizador confiado
 
 object App {
 
-    fun mainLog(id: Int, pin: Int) {
+    fun mainLog(id: Int, pin: Int) {  // Executa a main routine de login, com todas as funções para o login.
         val trusted = login(id, pin)
         openDoor(trusted)
         if (invalidLog) TUI.loginRoutine()

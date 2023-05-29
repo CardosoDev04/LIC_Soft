@@ -6,15 +6,15 @@ object TUI {
         var array = emptyArray<Int>()
         for (i in 1..qty) {   //A variável qty, vai definir quantos digitos queremos ler do input (Ex: 4 para o PIN, 3 para o ID)
             var key = KBD.waitKey(5000).code
-            if (key != 0.toChar().code) {
+            if (key != 0.toChar().code) {   // Se a key premida não for nula, é adicionada ao array
                 array += key - 48
             }
 
         }
-        return array.joinToString("").toInt()
+        return array.joinToString("").toInt()  // O array é joined para um inteiro que será o valor comparado às credenciais
     }
 
-    fun loginRoutine() {
+    fun loginRoutine() { // Executa a rotina de login
         LCD.write("Hello user,")
         Time.sleep(1000)
         LCD.clear()
