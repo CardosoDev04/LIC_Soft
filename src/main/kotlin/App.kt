@@ -1,5 +1,8 @@
 import isel.leic.utils.Time
 import kotlin.math.log
+import java.io.File
+import java.util.HashMap
+import java.util.Scanner
 
 data class TrustedUser(val id: Int, val pin: Int)
 
