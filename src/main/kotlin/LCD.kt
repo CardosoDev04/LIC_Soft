@@ -79,7 +79,8 @@ object LCD {
 
     // Envia comando para posicionar cursor (‘line’:0..LINES-1 , ‘column’:0..COLS-1)
     fun cursor(line: Int, column: Int) {
-        val data = (line * 4 + 8) * 16 + column
+        val data = (0x40 * line + 0x80)  + column
+        println(data)
         writeByte(false, data)
     }
 
@@ -96,6 +97,8 @@ fun main() {
     SerialEmitter.init()
     LCD.init()
     LCD.write("Hello world!")
+    LCD.cursor(1,0)
+    LCD.write("Test")
 
 
 }
