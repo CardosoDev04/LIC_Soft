@@ -94,7 +94,7 @@ fun main(){
     HAL.init()
     SerialEmitter.init()
     LCD.init()
-    LCD.write("Bo ca bali nada")
+    LCD.write("Bo")
 
 
 }

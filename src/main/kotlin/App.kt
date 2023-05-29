@@ -9,8 +9,14 @@ object App {
     }
 
     fun openDoor(isTrusted: Boolean){
-        if(isTrusted) Doormechanism.open(15)
-        else Doormechanism.close(15)
+        if(isTrusted) {
+            Doormechanism.open(15)
+            LCD.write("Success")
+        }
+        else {
+            Doormechanism.close(15)
+            LCD.write("Error")
+        }
     }
 }
 

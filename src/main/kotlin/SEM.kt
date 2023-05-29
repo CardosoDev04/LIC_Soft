@@ -1,7 +1,7 @@
 import isel.leic.utils.Time
 
 const val SS = 0x20
-const val SDX = 0x80
+const val SDX = 0x01
 const val SCLK = 0x40
 const val sLCD = 0x02
 const val sDOOR = 0x04
@@ -29,13 +29,14 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
 
         for (i in 0..4) {
             HAL.clrBits(SCLK)
-            HAL.writeBits(SDX, data.shr(i).shl(7))
+            HAL.writeBits(SDX, data.shr(i))
             HAL.setBits(SCLK)
             Time.sleep(1)
         }
+        HAL.clrBits(SCLK)
         HAL.setBits(mask)
 
-        HAL.clrBits(SCLK)
+
     }
 
     // Retorna true se o canal série estiver ocupado

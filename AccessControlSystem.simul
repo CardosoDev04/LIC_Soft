@@ -46,7 +46,7 @@ UsbPort.O7 -> ob.ACK
 # --------------------------------------
 # Serial Receiver
 UsbPort.O1 -> srl./SS
-UsbPort.O7-> srl.SDX
+UsbPort.O0-> srl.SDX
 UsbPort.O6-> srl.SCLK
 srl.DXval -> dl.Dval
 srl.D[0-4] -> dl.I[0-4]
@@ -62,7 +62,7 @@ dl.done -> srl.accept
 # --------------------------------------
 # Serial Receiver
 UsbPort.O2 -> srd./SS
-UsbPort.O7 -> srd.SDX
+UsbPort.O0 -> srd.SDX
 UsbPort.O6-> srd.SCLK
 srd.busy -> UsbPort.I6
 srd.DXval -> dc.Dval

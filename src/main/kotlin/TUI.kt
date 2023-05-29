@@ -1,20 +1,16 @@
-
+import isel.leic.utils.Time
 
 fun getInt(qty: Int): Int {
 
-    var array = emptyArray<String>()
+    var array = emptyArray<Int>()
     for (i in 1..qty) {   //A variável qty, vai definir quantos digitos queremos ler do input (Ex: 4 para o PIN, 3 para o ID)
-        var digit = KBD.waitKey(2500).code.toString()
-
-        if(digit != "") {  //Se não for lido digito algum, deve tentar ler de novo (Pode ter ocorrido pelo utilizador demorar demasiado)
-            array += digit
-        } else {
-            digit = KBD.waitKey(2500).code.toString()
-            array += digit
+        var key = KBD.waitKey(5000).code
+        if(key != 0.toChar().code  ){
+            array += key - 48
         }
 
     }
-    return array.joinToString().toInt()
+    return array.joinToString("").toInt()
 }
 fun main (){
 
