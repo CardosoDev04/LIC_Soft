@@ -9,7 +9,7 @@ object TUI {
         var array = emptyArray<Int>()
 
         for (i in 1..qty) {   //A variável qty, vai definir quantos digitos queremos ler do input (Ex: 4 para o PIN, 3 para o ID)
-            var key = KBD.waitKey(5000).code
+            var key = KBD.waitKey(20000).code
             if (key != 0.toChar().code) {   // Se a key premida não for nula, é adicionada ao array
                 array += key - 48
                 LCD.write(key.toChar())
@@ -40,9 +40,9 @@ object TUI {
         LCD.clear()
         LCD.write(getTimeAndDate())
         LCD.cursor(1,0)
-        LCD.write("UIN=?")
+        LCD.write("UIN=???")
         LCD.cursor(1,4)
-        val id = getInt(1)
+        val id = getInt(3)
         println(id)
         LCD.clear()
         LCD.write(getTimeAndDate())
@@ -59,6 +59,7 @@ object TUI {
 }
 
 fun main() {
+    USERS.defineMap()
     println(TUI.getTimeAndDate())
     HAL.init()
     SerialEmitter.init()

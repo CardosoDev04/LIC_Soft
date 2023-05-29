@@ -1,8 +1,6 @@
 import isel.leic.utils.Time
 import kotlin.math.log
-import java.io.File
-import java.util.HashMap
-import java.util.Scanner
+
 
 data class TrustedUser(val id: Int, val pin: Int)
 
@@ -14,18 +12,23 @@ object App {
 
     fun mainLog(id: Int, pin: Int) {  // Executa a main routine de login, com todas as funções para o login.
         val trusted = login(id, pin)
-        openDoor(trusted)
+        openDoor(trusted,id)
         if (invalidLog) TUI.loginRoutine()
     }
 
     fun login(id: Int, pin: Int): Boolean {
-        return id == trusted.id && pin == trusted.pin  // Verifica se o ID e PIN inseridos condizem com os do utilizador confiado
+        return  pin == USERS.getUserPin(id)  // Verifica se o ID e PIN inseridos condizem com os do utilizador confiado
     }
 
-    fun openDoor(isTrusted: Boolean) {
+    fun openDoor(isTrusted: Boolean,id: Int) {
         if (isTrusted) {    //Se o utilizador for o confiado, abre a porta caso contrario fecha e dá Error
             Doormechanism.open(15)
-            LCD.write("Welcome")
+            LCD.write("Welcome,")
+            LCD.cursor(1,0)
+            LCD.write("${USERS.getUsername(id)}")
+            Time.sleep(2000)
+            LCD.clear()
+            LCD.write("${USERS.getPhrase(id)}")
             invalidLog = false
         } else {
             Doormechanism.close(15)
