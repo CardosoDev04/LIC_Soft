@@ -2,16 +2,17 @@ import isel.leic.utils.Time
 import kotlin.math.log
 
 data class TrustedUser(val id: Int, val pin: Int)
+
 var invalidLog = false
 
 val trusted = TrustedUser(0, 1234) // Hardcode do utilizador confiado
 
 object App {
 
-    fun mainLog(id: Int,pin: Int){
-        val trusted = login(id,pin)
+    fun mainLog(id: Int, pin: Int) {
+        val trusted = login(id, pin)
         openDoor(trusted)
-        if(invalidLog) TUI.loginRoutine()
+        if (invalidLog) TUI.loginRoutine()
     }
 
     fun login(id: Int, pin: Int): Boolean {

@@ -15,7 +15,10 @@ object TUI {
     }
 
     fun loginRoutine() {
-        LCD.write("Enter user ID")
+        LCD.write("Hello user,")
+        Time.sleep(1000)
+        LCD.clear()
+        LCD.write("Enter your ID")
         val id = getInt(1)
         println(id)
         LCD.clear()
