@@ -1,7 +1,10 @@
+import isel.leic.utils.Time
 
-const val SS= 0x20
+const val SS = 0x20
 const val SDX = 0x80
 const val SCLK = 0x40
+const val sLCD = 0x02
+const val sDOOR = 0x04
 
 
 object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiver.
@@ -11,25 +14,28 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
     // Inicia a classe
     fun init() {
         HAL.init()
-        HAL.setBits(SS)
+        HAL.setBits(sLCD)
+        HAL.setBits(sDOOR)
 
     }
 
     // Envia uma trama para o SerialReceiver identificado o destino em addr e os bits de dados em data.
     fun send(addr: Destination, data: Int) {
-        if(addr == Destination.LCD){
-            HAL.clrBits(SS)
+
+        val mask = if (addr == Destination.LCD) sLCD else sDOOR
+
+        HAL.clrBits(mask)
+        HAL.clrBits(SCLK)
+
+        for (i in 0..4) {
             HAL.clrBits(SCLK)
-
-            for(i in 0 .. 4){
-                HAL.clrBits(SCLK)
-                HAL.writeBits(SDX,data.shr(i).shl(1))
-                HAL.setBits(SCLK)
-
-            }
-            HAL.setBits(SS)
+            HAL.writeBits(SDX, data.shr(i).shl(7))
+            HAL.setBits(SCLK)
+            Time.sleep(1)
         }
+        HAL.setBits(mask)
 
+        HAL.clrBits(SCLK)
     }
 
     // Retorna true se o canal série estiver ocupado
@@ -38,12 +44,10 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
     }
 
 
-
-
 }
 
-fun main(){
+fun main() {
     HAL.init()
     SerialEmitter.init()
-    SerialEmitter.send(SerialEmitter.Destination.LCD,10101)
+    SerialEmitter.send(SerialEmitter.Destination.LCD, 10101)
 }

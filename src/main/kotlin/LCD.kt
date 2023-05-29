@@ -1,6 +1,6 @@
 import isel.leic.utils.Time
 const val MSK = 0x0F
-var isSerial = false
+var isSerial = true
 object LCD {
 
     // Escreve um nibble de comando/dados no LCD em paralelo
@@ -53,19 +53,16 @@ object LCD {
 
 fun init() {
     Time.sleep(15)
-    writeNibble(false, 3)
-    Time.sleep(4.1.toLong())
-    writeNibble(false, 3)
-    Time.sleep(0.0000001.toLong())
-    writeNibble(false, 3)
-    writeNibble(false, 2)
-    writeNibble(false, 2)
-    writeNibble(false, 8)
-    writeNibble(false, 0)
-    writeNibble(false, 1)
-    writeNibble(false, 0)
-    writeNibble(false, 6)
-    writeCMD(15)
+    writeNibble(false,0x03)
+    Time.sleep(5)
+    writeNibble(false,0x03)
+    writeNibble(false,0x03)
+    writeNibble(false,0x02)
+    writeCMD(0x28)
+    writeCMD(0x08)
+    writeCMD(0x01)
+    writeCMD(0x06)
+    writeCMD(0x0f)
 }
 
     // Escreve um caráter na posição corrente.
@@ -87,13 +84,15 @@ fun init() {
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
-        LCD.write("")
+        writeByte(false,1)
     }
 
 
 }
 
 fun main(){
+    HAL.init()
+    SerialEmitter.init()
     LCD.init()
     LCD.write("Bo ca bali nada")
 

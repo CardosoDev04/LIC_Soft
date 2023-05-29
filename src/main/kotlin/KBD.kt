@@ -1,6 +1,6 @@
 object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
     const val NONE = 0;
-    val KACK_MSK = 0x50
+    val KACK_MSK = 0x40
     val KVAL_MSK = 0x01
     val KMSK = 0x1E
     val digits = arrayOf('1','4','7','*','2','5','8','0','3','6','9','#')

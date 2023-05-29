@@ -1,0 +1,78 @@
+## --- Additional packages with Hardware to Simulator
+package accessctrl.simul    # for Modules used in Access Control System
+UsbPort = UsbPort
+
+# Generic modules to activate from Simulator
+kbd = Keyboard("123456789*0#",4,3,0)
+lcd = LCD
+door = DoorMechanism
+m=Switch ; "manut" ; setLabel("M")
+
+# Costume modules from accessctrl package
+rb  = RingBuffer
+ob  = OutputBuffer
+srl = SerialReceiver(5)
+dl  = LCD_Dispatcher
+srd = SerialReceiver(5)
+dc  = DoorController
+
+## --- Project Links ---
+# --------------------------------------
+# Manut
+# --------------------------------------
+m.out -> UsbPort.I7
+
+# --------------------------------------
+# Keyboard Reader
+# --------------------------------------
+# Key Decode
+1 -> kbd.oe
+kbd.val -> rb.DAV
+kbd.K[0-3] -> rb.D[0-3]
+
+# Ring Buffer
+rb.DAC -> kbd.ack
+rb.Q[0-3] -> ob.D[0-3]
+rb.Wreg -> ob.Load
+
+# Output Buffer
+ob.OBfree -> rb.CTS
+ob.Q[0-3] -> UsbPort.I[1-4]
+ob.Dval -> UsbPort.I0
+UsbPort.O7 -> ob.ACK
+
+# --------------------------------------
+# SLCDC
+# --------------------------------------
+# Serial Receiver
+UsbPort.O1 -> srl./SS
+UsbPort.O7-> srl.SDX
+UsbPort.O6-> srl.SCLK
+srl.DXval -> dl.Dval
+srl.D[0-4] -> dl.I[0-4]
+
+# LCD Dispatcher
+dl.D[1-4] -> lcd.D[4-7]
+dl.D0 -> lcd.rs
+dl.WrL -> lcd.e
+dl.done -> srl.accept
+
+# --------------------------------------
+# SDC
+# --------------------------------------
+# Serial Receiver
+UsbPort.O2 -> srd./SS
+UsbPort.O7 -> srd.SDX
+UsbPort.O6-> srd.SCLK
+srd.busy -> UsbPort.I6
+srd.DXval -> dc.Dval
+srd.D[0-4] -> dc.I[0-4]
+
+# Door Controller
+dc.V[0-3] -> door.V[0-3]
+dc.On -> door.On/Off
+dc.Open -> door.Open/Close
+dc.done -> srd.accept
+door.FCclose -> dc.Sclose
+door.FCopen -> dc.Sopen
+door.Pdetect -> dc.Psensor
