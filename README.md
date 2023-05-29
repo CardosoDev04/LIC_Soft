@@ -13,6 +13,8 @@ The development of this project was entirely done during the second semester of 
 ![Logo](https://www.isel.pt/sites/default/files/NoPath%20-%20Copy%402x_0.png)
 
 
+## Current Project State Showcase
+![ezgif com-video-to-gif](https://github.com/CardosoDev04/LIC_Soft/assets/122165256/131a34b7-f63f-4f15-93d0-5ef1b7b9de17)
 
 
 
