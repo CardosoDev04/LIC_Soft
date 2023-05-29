@@ -24,15 +24,17 @@ object HAL { // Virtualiza o acesso ao sistema UsbPort
     }
 
     // Escreve nos bits representados por mask o valor de value
-    fun writeBits(mask: Int, value: Int){
+    fun writeBits(mask: Int, value: Int) {
         x = (value and mask) or (x and mask.inv())
         UsbPort.write(x)
     }
+
     // Coloca os bits representados por mask no valor lógico ‘1’
     fun setBits(mask: Int) {
         x = x or mask
         UsbPort.write(x)
     }
+
     // Coloca os bits representados por mask no valor lógico ‘0’
     fun clrBits(mask: Int) {
         x = x and mask.inv()
@@ -40,10 +42,9 @@ object HAL { // Virtualiza o acesso ao sistema UsbPort
     }
 
     fun main() {
-        while(true){
+        while (true) {
             val value = UsbPort.read()
             UsbPort.write(value)
         }
     }
 }
-//

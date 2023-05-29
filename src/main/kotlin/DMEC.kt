@@ -25,6 +25,6 @@ object Doormechanism { // Controla o estado do mecanismo de abertura da porta.
 
         // Verifica se o comando anterior está concluído
         fun finished() : Boolean {
-            return !SerialEmitter.isBusy()  //if not busy, then is finished
+            return !SerialEmitter.isBusy()  // Se não está ocupado, está terminado.
         }
     }
