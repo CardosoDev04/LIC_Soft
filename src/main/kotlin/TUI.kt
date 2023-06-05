@@ -4,7 +4,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 object TUI {
-    fun getInt(qty: Int): Int {   // Função que lê o input e transforma num inteiro para comparar às credenciais confiadas.
+    /**
+     * Função que lê o input e transforma num inteiro para comparar às credenciais confiadas.
+     */
+    fun getInt(qty: Int): Int {
 
         var array = emptyArray<Int>()
 
@@ -19,6 +22,9 @@ object TUI {
         return array.joinToString("").toInt()  // O array é joined para um inteiro que será o valor comparado às credenciais
     }
 
+    /**
+     * Função que faz get da Data e Hora e formata-as para o tempo correto.
+     */
     fun getTimeAndDate(): String{
         while(true){
             val currentTime = LocalTime.now()
@@ -33,8 +39,10 @@ object TUI {
         }
     }
 
-
-    fun loginRoutine() { // Executa a rotina de login
+    /**
+     * Executa a rotina de login.
+     */
+    fun loginRoutine() {
         LCD.write("Hello user,")
         Time.sleep(1000)
         LCD.clear()

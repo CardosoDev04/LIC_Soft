@@ -3,4 +3,4 @@
 2;0;Maurice Karnaugh;Simplification is possible;
 3;0;John von Neumann;
 6;0;Kathleen Booth;
-565;5555;Joao Cardoso;Nu baii
+565;5555;Joao Cardoso;So lah
