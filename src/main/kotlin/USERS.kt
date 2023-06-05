@@ -111,14 +111,11 @@ fun updateDB() {
 }
 
 
-
-
 /**
  * A função main define o mapa inicialmente para poder ser utilizado.
  */
 fun main() {
     USERS.clearMap()
     USERS.defineMap()
-    println(USERS.userMap)
 
 }

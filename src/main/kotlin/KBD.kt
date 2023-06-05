@@ -40,9 +40,6 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
 fun main() {
     HAL.init()
     KBD.init()
-    while (true) {
-        println(KBD.waitKey(1000))
-    }
 
 
 }

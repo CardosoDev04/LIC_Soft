@@ -1,11 +1,14 @@
 import isel.leic.utils.Time
 import java.io.File
 import java.io.FileWriter
-import kotlin.math.log
+
+
 
 var invalidLog = false // Variável que é alterada para true se o login for inválido
 
-val M_MSK = 0x80
+const val M_MSK = 0x80
+
+
 
 const val NONE = 0;
 
@@ -111,12 +114,6 @@ object App {
         }
     }
 
-    /**
-     * Entra em modo de manutenção.
-     */
-    fun inMaintenance(): Boolean{
-        while(!HAL.isBit(M_MSK)) return false
-        return true
-    }
+
 }
 

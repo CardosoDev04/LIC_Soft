@@ -80,7 +80,6 @@ object LCD {
     // Envia comando para posicionar cursor (‘line’:0..LINES-1 , ‘column’:0..COLS-1)
     fun cursor(line: Int, column: Int) {
         val data = (0x40 * line + 0x80)  + column
-        println(data)
         writeByte(false, data)
     }
 

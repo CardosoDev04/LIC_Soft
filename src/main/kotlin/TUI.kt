@@ -1,8 +1,13 @@
+    import com.sun.tools.javac.Main
     import isel.leic.utils.Time
     import java.time.LocalTime
     import java.time.LocalDate
     import java.time.format.DateTimeFormatter
+    import java.util.*
+    import kotlin.concurrent.schedule
+    import kotlin.concurrent.thread
 
+    const val interval = 500L
     object TUI {
         /**
          * Função que lê o input e transforma num inteiro para comparar às credenciais confiadas.
@@ -58,6 +63,7 @@
          * Executa a rotina de login.
          */
         fun loginRoutine() {
+
             LCD.clear()
             LCD.write("Hello user,")
             Time.sleep(1000)
@@ -67,14 +73,12 @@
             LCD.write("UIN=???")
             LCD.cursor(1,4)
             val id = getInt(3,1)
-            println(id)
             LCD.clear()
             LCD.write(getTimeAndDate())
             LCD.cursor(1,0)
             LCD.write("PIN=????")
             LCD.cursor(1,4)
             val pin = getInt(4,1)
-            println(pin)
             LCD.clear()
             App.mainLog(id, pin)
 
@@ -83,7 +87,6 @@
     }
 
     fun main() {
-
         USERS.clearMap()
         USERS.defineMap()
         println(TUI.getTimeAndDate())
@@ -91,7 +94,21 @@
         SerialEmitter.init()
         LCD.init()
         KBD.init()
+        thread {
+            val timer = Timer()
+            timer.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                   Maintenance.inMaintenance()
+                    println("Maintenance mode is: " + Maintenance.inMaintenance())
+                    if(Maintenance.inMaintenance()) {
+                        cancel()
+                        Maintenance.maintenanceRoutine()
+                    }
+                }
+            }, 0, interval)
+        }
         TUI.loginRoutine()
+
 
 
     }
