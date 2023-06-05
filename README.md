@@ -14,8 +14,9 @@ The development of this project was entirely done during the second semester of 
 
 
 ## Current Project State Showcase
+![ezgif com-video-to-gif(2)](https://github.com/CardosoDev04/LIC_Soft/assets/122165256/2be810ff-6c53-48b6-9234-4c966a0de20f)
 
-![ezgif com-video-to-gif(1)](https://github.com/CardosoDev04/LIC_Soft/assets/122165256/353bb035-39c7-4d48-80da-80d0c4960754)
+
 
 
 
