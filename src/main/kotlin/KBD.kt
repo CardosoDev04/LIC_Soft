@@ -41,7 +41,7 @@ fun main() {
     HAL.init()
     KBD.init()
     while (true) {
-        println(KBD.waitKey(5000))
+        println(KBD.waitKey(1000))
     }
 
 

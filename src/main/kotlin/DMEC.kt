@@ -19,6 +19,7 @@ object Doormechanism { // Controla o estado do mecanismo de abertura da porta.
 
         // Envia comando para fechar a porta, com o parâmetro de velocidade
         fun close(velocity: Int) {
+            OC = 0
             var cmd = velocity.shl(1)
             SerialEmitter.send(SerialEmitter.Destination.DOOR,cmd or OC) //Envia 0velocity
         }

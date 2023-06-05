@@ -1,6 +1,8 @@
-0;1249;Alan Turing;Turing machine is ready;
+0;1249;Alan Turing;Turing machine is ready
 1;2072;George Boole;
-2;0;Maurice Karnaugh;Simplification is possible;
+2;0;Maurice Karnaugh;Simplification is possible
 3;0;John von Neumann;
+565;1234;Joao Cardoso;
 6;0;Kathleen Booth;
-565;5555;Joao Cardoso;So lah
+584;1234;Andre Brito;Eu nem gosto de comida
+574;1234;Tiago Goncalves;Massa melhor que arroz

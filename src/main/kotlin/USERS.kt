@@ -1,4 +1,6 @@
+import isel.leic.utils.Time
 import java.io.File
+import java.io.PrintWriter
 import java.util.HashMap
 
 
@@ -26,6 +28,14 @@ object USERS {
     }
 
     /**
+     * Função que limpa as entradas do HashMap
+     */
+
+    fun clearMap(){
+        userMap.clear()
+    }
+
+    /**
      * Função de search que procura pelo valor do pin para um dado UIN.
      */
     fun getUserPin(id: Int): Int? {
@@ -45,12 +55,70 @@ object USERS {
     fun getPhrase(id: Int): String? {
         return userMap[id]?.third
     }
+
+    /**
+     * Função que altera o PIN atual com o valor de newPIN
+     */
+    fun replacePIN(id: Int, newPIN: Int){
+        val currentInfo = userMap[id]
+        if(currentInfo != null) {
+            val updatedInfo = Triple(newPIN, currentInfo.second, currentInfo.third)
+            userMap[id] = updatedInfo
+        }
+        updateDB()
+        LCD.clear()
+        LCD.write("PIN Updated")
+        Time.sleep(2000)
+        Doormechanism.close(15)
+        LCD.clear()
+        TUI.loginRoutine()
+    }
+
+    /**
+     * Função que remove a mensagem/frase de um dado UIN
+     */
+    fun removePhrase(id: Int){
+        val info = userMap[id]
+        if(info != null) {
+            val updatedInfo = Triple(info.first,info.second,"")
+            userMap[id] = updatedInfo
+        }
+        updateDB()
+        LCD.clear()
+        LCD.write("Message removed")
+        Time.sleep(2000)
+        Doormechanism.close(15)
+        LCD.clear()
+        TUI.loginRoutine()
+    }
 }
+
+/**
+ * Atualiza os valores no ficheiro USERS.txt (Database) com as novas entradas do userMap
+ */
+fun updateDB() {
+    val file = File("USERS.txt")
+    val writer = PrintWriter(file)
+
+    USERS.userMap.forEach { entry: Map.Entry<Int, Triple<Int, String, String>> ->
+        val (id, triple) = entry
+        val formattedEntry = "$id;${triple.first};${triple.second};${triple.third}"
+        writer.println(formattedEntry)
+    }
+
+    writer.close()
+    println("USERS.txt file updated.")
+}
+
+
+
 
 /**
  * A função main define o mapa inicialmente para poder ser utilizado.
  */
 fun main() {
+    USERS.clearMap()
     USERS.defineMap()
+    println(USERS.userMap)
 
 }

@@ -1,9 +1,13 @@
 import isel.leic.utils.Time
+import java.io.File
+import java.io.FileWriter
 import kotlin.math.log
 
 var invalidLog = false // Variável que é alterada para true se o login for inválido
 
+val M_MSK = 0x80
 
+const val NONE = 0;
 
 object App {
 
@@ -35,9 +39,24 @@ object App {
             LCD.write("${USERS.getUsername(id)}")
             Time.sleep(2000)
             LCD.clear()
-            LCD.write("${USERS.getPhrase(id)}")
+            if(USERS.getPhrase(id)?.isNotEmpty() == true && USERS.getPhrase(id) != null) LCD.write("${USERS.getPhrase(id)}")
+            var entry = createLogEntry(id)
+            appendEntry(entry)
+
+            var key = NONE.toChar()
+            while(key == NONE.toChar()) {
+                key = KBD.getKey()
+            }
+            if(key == '#') {
+                replacePINRoutine(id)
+            }
+            else if(key == '*'){
+                USERS.removePhrase(id)
+            }
             invalidLog = false
-        } else {
+        }
+
+        else {
             Doormechanism.close(15)
             LCD.write("Invalid Login")
             invalidLog = true
@@ -46,6 +65,58 @@ object App {
         }
 
 
+    }
+
+    /**
+     * Cria uma entrada do tipo Log com a data e hora atual
+     */
+    fun createLogEntry(id: Int): String{
+        val timeDate = TUI.getTimeAndDate()
+        return "$timeDate:UIN $id"
+    }
+
+    /**
+     * Adiciona a entrada ao ficheiros LOGS
+     */
+    fun appendEntry(entry: String){
+        val logs = File("LOGS.txt")
+        FileWriter(logs, true).use { writer -> writer.write("$entry\n")}
+
+    }
+
+    /**
+     * Rotina de alteração do PIN
+     */
+    fun replacePINRoutine(id: Int){
+        LCD.clear()
+        LCD.write("PIN=????")
+        LCD.cursor(0,4)
+        val newPIN = TUI.getInt(4,0)
+        LCD.clear()
+        LCD.write("Confirm your PIN")
+        Time.sleep(3000)
+        LCD.clear()
+        LCD.write("PIN=????")
+        LCD.cursor(0,4)
+        val newPINConfirm = TUI.getInt(4,0)
+
+        if(newPIN == newPINConfirm) {
+            USERS.replacePIN(id, newPIN)
+        }
+        else{
+            LCD.clear()
+            LCD.write("Mismatch")
+            Time.sleep(2000)
+            replacePINRoutine(id)
+        }
+    }
+
+    /**
+     * Entra em modo de manutenção.
+     */
+    fun inMaintenance(): Boolean{
+        while(!HAL.isBit(M_MSK)) return false
+        return true
     }
 }
 
