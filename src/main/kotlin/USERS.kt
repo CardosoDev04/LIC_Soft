@@ -91,24 +91,26 @@ object USERS {
         LCD.clear()
         TUI.loginRoutine()
     }
-}
 
-/**
- * Atualiza os valores no ficheiro USERS.txt (Database) com as novas entradas do userMap
- */
-fun updateDB() {
-    val file = File("USERS.txt")
-    val writer = PrintWriter(file)
+    /**
+     * Atualiza os valores no ficheiro USERS.txt (Database) com as novas entradas do userMap
+     */
+    fun updateDB() {
+        val file = File("USERS.txt")
+        val writer = PrintWriter(file)
 
-    USERS.userMap.forEach { entry: Map.Entry<Int, Triple<Int, String, String>> ->
-        val (id, triple) = entry
-        val formattedEntry = "$id;${triple.first};${triple.second};${triple.third}"
-        writer.println(formattedEntry)
+        USERS.userMap.forEach { entry: Map.Entry<Int, Triple<Int, String, String>> ->
+            val (id, triple) = entry
+            val formattedEntry = "$id;${triple.first};${triple.second};${triple.third}"
+            writer.println(formattedEntry)
+        }
+
+        writer.close()
+        println("USERS.txt file updated.")
     }
-
-    writer.close()
-    println("USERS.txt file updated.")
 }
+
+
 
 
 /**

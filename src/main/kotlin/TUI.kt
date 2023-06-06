@@ -63,7 +63,12 @@
          * Executa a rotina de login.
          */
         fun loginRoutine() {
-
+            while (Maintenance.inMaintenance()) {
+                LCD.clear()
+                LCD.write("Out of Service")
+                Time.sleep(60000)
+                loginRoutine()
+            }
             LCD.clear()
             LCD.write("Hello user,")
             Time.sleep(1000)
@@ -94,15 +99,19 @@
         SerialEmitter.init()
         LCD.init()
         KBD.init()
+        println("Maintenance mode is: " + Maintenance.inMaintenance())
         thread {
             val timer = Timer()
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                    Maintenance.inMaintenance()
-                    println("Maintenance mode is: " + Maintenance.inMaintenance())
                     if(Maintenance.inMaintenance()) {
                         cancel()
+                        Time.sleep(1000)
+                        LCD.clear()
+                        LCD.write("Out of service")
                         Maintenance.maintenanceRoutine()
+                        println("Maintenance mode is: " + Maintenance.inMaintenance())
                     }
                 }
             }, 0, interval)

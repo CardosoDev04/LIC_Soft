@@ -18,6 +18,7 @@ object App {
      * Executa a main routine de login, com todas as funções para o login.
      */
     fun mainLog(id: Int, pin: Int) {
+
         val trusted = login(id, pin)
         openDoor(trusted,id)
         if (invalidLog) TUI.loginRoutine()

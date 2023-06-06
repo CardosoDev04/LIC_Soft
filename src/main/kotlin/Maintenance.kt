@@ -1,6 +1,7 @@
 import isel.leic.utils.Time
 import java.io.File
 import java.io.FileWriter
+import kotlin.system.exitProcess
 
 val maintenanceBox = """
     +------------------+
@@ -72,15 +73,129 @@ object Maintenance {
         maintenanceRoutine()
     }
 
+    fun removeUser(){
+        var UIN = 0
+        println("Insert the UIN of the User you wish to remove.")
+        val tryUIN = readln().toInt()
+        if(tryUIN <= 999){
+            UIN = tryUIN
+        }
+        else{
+            println("Please insert a 3 digit number, reloading...")
+            Time.sleep(2000)
+            removeUser()
+        }
+
+        println("Do you really wish to remove? (Y / N)")
+        val userInput = readln()
+        when(userInput){
+            "y" -> {
+                USERS.userMap.remove(UIN)
+                USERS.updateDB()
+                USERS.defineMap()
+
+                maintenanceRoutine()
+            }
+            "Y" -> {
+                USERS.userMap.remove(UIN)
+                USERS.updateDB()
+                USERS.defineMap()
+
+                maintenanceRoutine()
+            }
+            "n" -> maintenanceRoutine()
+            "N" -> maintenanceRoutine()
+            else -> {
+                println("Invalid Input")
+                removeUser()
+            }
+
+
+
+        }
+
+
+
+    }
+
+    fun insertPhrase() {
+        var thisUIN = 0
+        println("Insert the UIN of the desired user.")
+        val tryUIN = readln().toInt()
+        if (tryUIN <= 999) {
+            thisUIN = tryUIN
+        } else {
+            println("Please insert a 3-digit number, reloading...")
+            Time.sleep(2000)
+            insertPhrase()
+        }
+
+        println("Please insert the message you wish to add")
+        val phrase = readln().toString()
+        USERS.defineMap()
+        val user = USERS.userMap[thisUIN]
+        if (user != null) {
+            val updatedUser = Triple(user.first, user.second, phrase)
+            USERS.userMap[thisUIN] = updatedUser
+            USERS.updateDB()
+            USERS.defineMap()
+            println("Message Added Successfully")
+        } else {
+            println("User with UIN $thisUIN does not exist.")
+        }
+
+        maintenanceRoutine()
+    }
+
+
+    fun turnOff(){
+        println("Do you confirm you wish to turn off the system? (Y / N)")
+        val input = readln()
+
+        when(input){
+            "y" -> {
+                exitProcess(0)
+                USERS.updateDB()
+                USERS.defineMap()
+            }
+            "Y" -> {
+                exitProcess(0)
+                USERS.updateDB()
+                USERS.defineMap()
+            }
+            "n" -> maintenanceRoutine()
+            "N" -> maintenanceRoutine()
+            else -> {
+                println("Invalid input")
+                turnOff()
+            }
+        }
+    }
+
+    fun exitMaintenance(){
+        HAL.init()
+        HAL.clrBits(0x80)
+        println(HAL.isBit(0x80))
+        TUI.loginRoutine()
+    }
 
     fun maintenanceRoutine(){
+        KBD.isEnabled = false
         println(maintenanceBox)
         println("What would you like to do?")
         println(" 1 - Insert User")
+        println(" 2 - Remove User")
+        println(" 3 - Add Message to User")
+        println(" 4 - Turn the system OFF")
+        println(" 5 - Exit Maintenance mode")
         val option = readln().toInt()
 
         when(option){
             1 -> insertUser()
+            2 -> removeUser()
+            3 -> insertPhrase()
+            4 -> turnOff()
+            5 -> exitMaintenance()
             else -> maintenanceRoutine()
         }
     }

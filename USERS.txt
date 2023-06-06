@@ -2,8 +2,6 @@
 1;2072;George Boole;
 2;0;Maurice Karnaugh;Simplification is possible
 3;0;John von Neumann;
-565;2525;Joao Cardoso;
+565;2525;Joao Cardoso;test test
 6;0;Kathleen Booth;
-584;1234;Andre Brito;Eu nem gosto de comida
-574;1234;Tiago Goncalves;
-535;1256;Test User;
+584;9876;Andre Brito;
