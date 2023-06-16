@@ -24,6 +24,10 @@ object Maintenance {
         }
     }
 
+    /**
+     * Inicia a rotina de inserção de utilizador
+     */
+
     fun insertUser(){
 
         var UIN: Int = 0
@@ -73,6 +77,10 @@ object Maintenance {
         maintenanceRoutine()
     }
 
+    /**
+     * Inicia a rotina de remoção de utilizador
+     */
+
     fun removeUser(){
         var UIN = 0
         println("Insert the UIN of the User you wish to remove.")
@@ -118,6 +126,10 @@ object Maintenance {
 
     }
 
+    /**
+     * Inicia a rotina de inserção de mensagem
+     */
+
     fun insertPhrase() {
         var thisUIN = 0
         println("Insert the UIN of the desired user.")
@@ -147,6 +159,9 @@ object Maintenance {
         maintenanceRoutine()
     }
 
+    /**
+     * Desliga o programa
+     */
 
     fun turnOff(){
         println("Do you confirm you wish to turn off the system? (Y / N)")
@@ -178,6 +193,10 @@ object Maintenance {
         println(HAL.isBit(0x80))
         TUI.loginRoutine()
     }
+
+    /**
+     * Executa a rotina principal de manutenção
+     */
 
     fun maintenanceRoutine(){
         KBD.isEnabled = false
