@@ -95,14 +95,14 @@ object App {
         LCD.clear()
         LCD.write("PIN=????")
         LCD.cursor(0,4)
-        val newPIN = TUI.getInt(4,0)
+        val newPIN = TUI.getInt(4,0, true)
         LCD.clear()
         LCD.write("Confirm your PIN")
         Time.sleep(3000)
         LCD.clear()
         LCD.write("PIN=????")
         LCD.cursor(0,4)
-        val newPINConfirm = TUI.getInt(4,0)
+        val newPINConfirm = TUI.getInt(4,0, true)
 
         if(newPIN == newPINConfirm) {
             USERS.replacePIN(id, newPIN)

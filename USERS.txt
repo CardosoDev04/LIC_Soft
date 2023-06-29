@@ -1,7 +1,9 @@
-0;1249;Alan Turing;Turing machine is ready
+0;2222;Alan Turing;
 1;2072;George Boole;
 2;0;Maurice Karnaugh;Simplification is possible
 3;0;John von Neumann;
-565;2525;Joao Cardoso;test test
-6;0;Kathleen Booth;
-584;9876;Andre Brito;
+4;1111;Joao Cardoso;Melhor frase
+5;0;Kathleen Booth;
+6;9876;Andre Brito;Frase demo
+7;3232;Zezocas Nights;
+8;1234;Test user;

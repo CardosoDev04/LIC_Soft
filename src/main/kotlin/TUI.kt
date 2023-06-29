@@ -12,7 +12,7 @@
         /**
          * Função que lê o input e transforma num inteiro para comparar às credenciais confiadas.
          */
-        fun getInt(qty: Int, line: Int): Int {
+        fun getInt(qty: Int, line: Int, isHidden: Boolean): Int {
             var array = emptyArray<Int>()
             var clearInput = false // Flag to track whether the input should be cleared
 
@@ -20,7 +20,12 @@
                 val key = KBD.waitKey(5000).code
                 if (key != 0.toChar().code && key != '*'.code) {
                     array += key - 48
-                    LCD.write(key.toChar())
+                    if(!isHidden) {
+                        LCD.write(key.toChar())
+                    }
+                    else{
+                        LCD.write("*")
+                    }
                 } else if (key == '*'.code) {
                     clearInput = true // Set the flag to clear the input
                     break
@@ -36,7 +41,7 @@
                     4 -> LCD.write("????")
                 }
                 LCD.cursor(line, 4)
-                return getInt(qty, line) // Recursive call to get a new input
+                return getInt(qty, line, isHidden) // Recursive call to get a new input
             }
 
             return array.joinToString("").toInt()
@@ -77,13 +82,13 @@
             LCD.cursor(1,0)
             LCD.write("UIN=???")
             LCD.cursor(1,4)
-            val id = getInt(3,1)
+            val id = getInt(3,1, false)
             LCD.clear()
             LCD.write(getTimeAndDate())
             LCD.cursor(1,0)
             LCD.write("PIN=????")
             LCD.cursor(1,4)
-            val pin = getInt(4,1)
+            val pin = getInt(4,1, true)
             LCD.clear()
             App.mainLog(id, pin)
 
@@ -94,6 +99,7 @@
     fun main() {
         USERS.clearMap()
         USERS.defineMap()
+        USERS.updateDB()
         println(TUI.getTimeAndDate())
         HAL.init()
         SerialEmitter.init()
@@ -113,6 +119,7 @@
                         Maintenance.maintenanceRoutine()
                         println("Maintenance mode is: " + Maintenance.inMaintenance())
                     }
+                    else return
                 }
             }, 0, interval)
         }

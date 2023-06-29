@@ -19,12 +19,13 @@ object LCD {
         if (rs) {
             val shifted = data.shl(1)
             SerialEmitter.send(SerialEmitter.Destination.LCD, shifted or 1)
+
         } else {
             val shifted = data.shl(1)
             SerialEmitter.send(SerialEmitter.Destination.LCD, shifted)
 
         }
-
+            Thread.sleep(1)
     }
 
 

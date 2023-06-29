@@ -12,6 +12,19 @@ val maintenanceBox = """
 
 object Maintenance {
 
+    fun getBiggestUIN(): Int? {
+        var maxUIN: Int? = null
+
+        for (entry in USERS.userMap.entries) {
+            val uin = entry.key
+            if (maxUIN == null || uin > maxUIN) {
+                maxUIN = uin
+            }
+        }
+
+        return maxUIN
+    }
+
 
 
     /**
@@ -30,20 +43,20 @@ object Maintenance {
 
     fun insertUser(){
 
-        var UIN: Int = 0
+        var UIN: Int? = 0
         var PIN: Int = 0
         var name: String = ""
 
-        println("Please insert the UIN.")
-        val tryUIN = readln().toInt()
-        if( tryUIN <= 999){
-            UIN = tryUIN
-        }
-        else{
-            println("Please insert a 3 digit number, reloading...")
-            Time.sleep(2000)
-            insertUser()
-        }
+//        println("Please insert the UIN.")
+//        val tryUIN = readln().toInt()
+//        if( tryUIN <= 999){
+//            UIN = tryUIN
+//        }
+//        else{
+//            println("Please insert a 3 digit number, reloading...")
+//            Time.sleep(2000)
+//            insertUser()
+//        }
 
         println("Please insert the PIN code")
         val tryPIN = readln().toInt()
@@ -68,12 +81,12 @@ object Maintenance {
             insertUser()
         }
 
-
+        UIN = getBiggestUIN()?.plus(1)
         val entry = "$UIN;$PIN;$name;"
         val file = File("USERS.txt")
         FileWriter(file, true).use { writer -> writer.write("$entry\n")}
 
-        println("User with name: $name was added")
+        println("User with name: $name and UIN $UIN was added")
         maintenanceRoutine()
     }
 
@@ -189,9 +202,11 @@ object Maintenance {
 
     fun exitMaintenance(){
         HAL.init()
-        HAL.clrBits(0x80)
-        println(HAL.isBit(0x80))
-        TUI.loginRoutine()
+
+        if(!HAL.isBit(0x80)) {
+            TUI.loginRoutine()
+        }
+        else maintenanceRoutine()
     }
 
     /**
@@ -206,17 +221,21 @@ object Maintenance {
         println(" 2 - Remove User")
         println(" 3 - Add Message to User")
         println(" 4 - Turn the system OFF")
-        println(" 5 - Exit Maintenance mode")
-        val option = readln().toInt()
 
-        when(option){
-            1 -> insertUser()
-            2 -> removeUser()
-            3 -> insertPhrase()
-            4 -> turnOff()
-            5 -> exitMaintenance()
-            else -> maintenanceRoutine()
+
+        var optionStr = readln()
+        if(optionStr != ""){
+            var option = optionStr.toInt()
+            when(option){
+                1 -> insertUser()
+                2 -> removeUser()
+                3 -> insertPhrase()
+                4 -> turnOff()
+                else -> maintenanceRoutine()
+            }
         }
+
+
     }
 
 }

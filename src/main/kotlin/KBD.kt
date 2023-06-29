@@ -5,21 +5,21 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
     val KACK_MSK = 0x80
     val KVAL_MSK = 0x01
     val KMSK = 0x1E
-    val digits = arrayOf('1', '4', '7', '*', '2', '5', '8', '0', '3', '6', '9', '#')
+    val digits = arrayOf('1', '4', '7', '*', '2', '5', '8', '0', '3', '6', '9', '#' , NONE.toChar(), NONE.toChar(), NONE.toChar(), NONE.toChar())
     var isEnabled = true
 
     // Inicia a classe
     fun init() {
         println("Initializing KBD")
+        HAL.clrBits(KACK_MSK)
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
     fun getKey(): Char { // Executa a rotina de ler a key, de acordo com o diagrama temporal
 
         if(isEnabled) {
-            val key = HAL.readBits(KMSK)
-
             if (HAL.isBit(KVAL_MSK)) {
+                val key = HAL.readBits(KMSK)
                 HAL.setBits(KACK_MSK)
                 while (HAL.isBit(KVAL_MSK)) {
                 }
@@ -30,6 +30,7 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
         }
         else return NONE.toChar()
     }
+
 
     // Retorna a tecla premida, caso ocorra antes do ‘timeout’ (representado em milissegundos), ou NONE caso contrário.
     fun waitKey(timeout: Long): Char {
@@ -49,5 +50,8 @@ fun main() {
     HAL.init()
     KBD.init()
 
+    while(true){
+        println(KBD.waitKey(1000))
+    }
 
 }
