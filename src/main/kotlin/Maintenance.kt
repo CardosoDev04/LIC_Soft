@@ -5,7 +5,7 @@ import kotlin.system.exitProcess
 
 val maintenanceBox = """
     +------------------+
-    |  MAINTENANCE MODE |
+    | MAINTENANCE MODE |
     +------------------+
 """.trimIndent()
 
@@ -46,17 +46,6 @@ object Maintenance {
         var UIN: Int? = 0
         var PIN: Int = 0
         var name: String = ""
-
-//        println("Please insert the UIN.")
-//        val tryUIN = readln().toInt()
-//        if( tryUIN <= 999){
-//            UIN = tryUIN
-//        }
-//        else{
-//            println("Please insert a 3 digit number, reloading...")
-//            Time.sleep(2000)
-//            insertUser()
-//        }
 
         println("Please insert the PIN code")
         val tryPIN = readln().toInt()
@@ -223,10 +212,9 @@ object Maintenance {
         println(" 4 - Turn the system OFF")
 
 
-        var optionStr = readln()
+        val optionStr = readln()
         if(optionStr != ""){
-            var option = optionStr.toInt()
-            when(option){
+            when(optionStr.toInt()){
                 1 -> insertUser()
                 2 -> removeUser()
                 3 -> insertPhrase()

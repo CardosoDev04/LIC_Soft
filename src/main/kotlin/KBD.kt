@@ -10,7 +10,6 @@ object KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ o
 
     // Inicia a classe
     fun init() {
-        println("Initializing KBD")
         HAL.clrBits(KACK_MSK)
     }
 

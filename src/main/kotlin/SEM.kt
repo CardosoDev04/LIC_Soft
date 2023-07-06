@@ -13,9 +13,9 @@ object SerialEmitter { // Envia tramas para os diferentes módulos Serial Receiv
 
     // Inicia a classe
     fun init() {
-        HAL.init()
         HAL.setBits(sLCD)
         HAL.setBits(sDOOR)
+        HAL.clrBits(SCLK)
 
     }
 

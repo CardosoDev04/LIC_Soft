@@ -3,5 +3,5 @@
 2;0;Maurice Karnaugh;Simplification is possible;
 3;0;John von Neumann;
 6;0;Kathleen Booth;
-565;5555;Joao Cardoso;O Rei de LIC
-574;5555;Tiago Goncalves;O patrao
+7;5555;Joao Cardoso;O Rei de LIC
+8;5555;Tiago Goncalves;O patrao

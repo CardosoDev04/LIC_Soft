@@ -6,6 +6,7 @@
     import java.util.*
     import kotlin.concurrent.schedule
     import kotlin.concurrent.thread
+    import kotlin.properties.Delegates
 
     const val interval = 500L
     object TUI {
@@ -68,11 +69,12 @@
          * Executa a rotina de login.
          */
         fun loginRoutine() {
-            while (Maintenance.inMaintenance()) {
+            if(Maintenance.inMaintenance()) {
+                Time.sleep(500)
                 LCD.clear()
-                LCD.write("Out of Service")
-                Time.sleep(60000)
-                loginRoutine()
+                LCD.write("Out of service")
+                Maintenance.maintenanceRoutine()
+                println("Maintenance mode is: " + Maintenance.inMaintenance())
             }
             LCD.clear()
             LCD.write("Hello user,")
@@ -106,24 +108,9 @@
         LCD.init()
         KBD.init()
         println("Maintenance mode is: " + Maintenance.inMaintenance())
-        thread {
-            val timer = Timer()
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                   Maintenance.inMaintenance()
-                    if(Maintenance.inMaintenance()) {
-                        cancel()
-                        Time.sleep(1000)
-                        LCD.clear()
-                        LCD.write("Out of service")
-                        Maintenance.maintenanceRoutine()
-                        println("Maintenance mode is: " + Maintenance.inMaintenance())
-                    }
-                    else return
-                }
-            }, 0, interval)
-        }
         TUI.loginRoutine()
+
+
 
 
 

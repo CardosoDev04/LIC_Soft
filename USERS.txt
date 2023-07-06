@@ -1,4 +1,4 @@
-0;2222;Alan Turing;
+0;1234;Alan Turing;
 1;2072;George Boole;
 2;0;Maurice Karnaugh;Simplification is possible
 3;0;John von Neumann;
@@ -7,3 +7,4 @@
 6;9876;Andre Brito;Frase demo
 7;3232;Zezocas Nights;
 8;1234;Test user;
+9;3333;Carlos Manaca;

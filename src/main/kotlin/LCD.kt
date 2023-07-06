@@ -25,7 +25,7 @@ object LCD {
             SerialEmitter.send(SerialEmitter.Destination.LCD, shifted)
 
         }
-            Thread.sleep(1)
+            Thread.sleep(5)
     }
 
 
@@ -93,7 +93,6 @@ object LCD {
 }
 
 fun main() {
-    HAL.init()
     SerialEmitter.init()
     LCD.init()
     LCD.write("Hello world!")
