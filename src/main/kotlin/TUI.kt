@@ -69,6 +69,7 @@
          * Executa a rotina de login.
          */
         fun loginRoutine() {
+            Doormechanism.close(15)
             if(Maintenance.inMaintenance()) {
                 Time.sleep(500)
                 LCD.clear()
@@ -77,7 +78,6 @@
                 println("Maintenance mode is: " + Maintenance.inMaintenance())
             }
             LCD.clear()
-            LCD.write("Hello user,")
             Time.sleep(1000)
             LCD.clear()
             LCD.write(getTimeAndDate())
@@ -97,11 +97,10 @@
         }
 
     }
-
     fun main() {
+        Doormechanism.close(15)
         USERS.clearMap()
         USERS.defineMap()
-        USERS.updateDB()
         println(TUI.getTimeAndDate())
         HAL.init()
         SerialEmitter.init()

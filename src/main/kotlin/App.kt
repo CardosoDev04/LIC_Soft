@@ -48,7 +48,8 @@ object App {
             appendEntry(entry)
 
             var key = NONE.toChar()
-            while(key == NONE.toChar()) {
+            val initialTime = Time.getTimeInMillis()
+            while(key == NONE.toChar() && Time.getTimeInMillis() - initialTime < 5000) {
                 key = KBD.getKey()
             }
             if(key == '#') {
@@ -58,6 +59,7 @@ object App {
                 USERS.removePhrase(id)
             }
             invalidLog = false
+            TUI.loginRoutine()
         }
 
         else {

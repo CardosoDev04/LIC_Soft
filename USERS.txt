@@ -1,10 +1,10 @@
-0;1234;Alan Turing;
-1;2072;George Boole;
-2;0;Maurice Karnaugh;Simplification is possible
+0;3412;Alan Turing;
+1;7220;George Boole;True or false
+2;0;Maurice Karnaugh;
 3;0;John von Neumann;
-4;1111;Joao Cardoso;Melhor frase
-5;0;Kathleen Booth;
-6;9876;Andre Brito;Frase demo
+4;1111;Joao Cardoso;
+5;4512;Kathleen Booth;
+6;7698;Andre Brito;
 7;3232;Zezocas Nights;
-8;1234;Test user;
-9;3333;Carlos Manaca;
+9;3333;Carlos Manaca;test test
+10;3333;xpto;xpto

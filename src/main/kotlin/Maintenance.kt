@@ -101,14 +101,12 @@ object Maintenance {
         when(userInput){
             "y" -> {
                 USERS.userMap.remove(UIN)
-                USERS.updateDB()
                 USERS.defineMap()
 
                 maintenanceRoutine()
             }
             "Y" -> {
                 USERS.userMap.remove(UIN)
-                USERS.updateDB()
                 USERS.defineMap()
 
                 maintenanceRoutine()
@@ -171,14 +169,16 @@ object Maintenance {
 
         when(input){
             "y" -> {
-                exitProcess(0)
+
                 USERS.updateDB()
                 USERS.defineMap()
+                exitProcess(0)
             }
             "Y" -> {
-                exitProcess(0)
+
                 USERS.updateDB()
                 USERS.defineMap()
+                exitProcess(0)
             }
             "n" -> maintenanceRoutine()
             "N" -> maintenanceRoutine()
@@ -203,6 +203,7 @@ object Maintenance {
      */
 
     fun maintenanceRoutine(){
+        Doormechanism.close(15)
         KBD.isEnabled = false
         println(maintenanceBox)
         println("What would you like to do?")

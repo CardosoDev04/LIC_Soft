@@ -17,7 +17,7 @@ object USERS {
         val file = File("USERS.txt")
         file.forEachLine { line ->
             val parts = line.split(";")
-            val info = Triple(parts[1].toInt(), parts[2], parts[3])
+            val info = Triple(Cryptography.pinHashing(parts[1].toInt()), parts[2], parts[3])
             val id: String = when(parts[0].length){
                 1 -> "00" + parts[0]
                 2 -> "0" + parts[0]
@@ -65,7 +65,6 @@ object USERS {
             val updatedInfo = Triple(newPIN, currentInfo.second, currentInfo.third)
             userMap[id] = updatedInfo
         }
-        updateDB()
         LCD.clear()
         LCD.write("PIN Updated")
         Time.sleep(2000)
@@ -83,7 +82,6 @@ object USERS {
             val updatedInfo = Triple(info.first,info.second,"")
             userMap[id] = updatedInfo
         }
-        updateDB()
         LCD.clear()
         LCD.write("Message removed")
         Time.sleep(2000)
@@ -101,7 +99,8 @@ object USERS {
 
         USERS.userMap.forEach { entry: Map.Entry<Int, Triple<Int, String, String>> ->
             val (id, triple) = entry
-            val formattedEntry = "$id;${triple.first};${triple.second};${triple.third}"
+            val hashpin = Cryptography.pinHashing(triple.first)
+            val formattedEntry = "$id;$hashpin;${triple.second};${triple.third}"
             writer.println(formattedEntry)
         }
 

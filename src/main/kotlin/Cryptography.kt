@@ -1,13 +1,10 @@
 object Cryptography {
 
-    fun pinHashing(input: Int?) : Int{
-        var output: Int = 0
-        val length = input.toString().length
-            val firstHalf = input.toString().substring(0,length)
-            val secondHalf = input.toString().substring(length)
-            output = (secondHalf + firstHalf).toInt()
+    fun pinHashing(number: Int) : Int{
+        val firstHalf = number / 100
+        val secondHalf = number % 100
 
-        return output
+        return (secondHalf * 100) + firstHalf
     }
 
 }
