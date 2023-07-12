@@ -43,7 +43,14 @@ object App {
             LCD.write("${USERS.getUsername(id)}")
             Time.sleep(2000)
             LCD.clear()
-            if(USERS.getPhrase(id)?.isNotEmpty() == true && USERS.getPhrase(id) != null) LCD.write("${USERS.getPhrase(id)}")
+            if(USERS.getPhrase(id)?.isNotEmpty() == true && USERS.getPhrase(id) != null && USERS.getPhrase(id) != ""){
+                LCD.write("${USERS.getPhrase(id)}")
+            }
+            if(USERS.getPhrase(id) == "") {
+                LCD.clear()
+                Doormechanism.close(15)
+                TUI.loginRoutine()
+            }
             var entry = createLogEntry(id)
             appendEntry(entry)
 

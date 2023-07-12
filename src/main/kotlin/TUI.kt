@@ -9,6 +9,7 @@
     import kotlin.properties.Delegates
 
     const val interval = 500L
+
     object TUI {
         /**
          * Função que lê o input e transforma num inteiro para comparar às credenciais confiadas.
@@ -19,15 +20,16 @@
 
             for (i in 1..qty) {
                 val key = KBD.waitKey(5000).code
-                if (key != 0.toChar().code && key != '*'.code) {
+                if (key != 0.toChar().code && key != '*'.code && key != '#'.code) {
                     array += key - 48
-                    if(!isHidden) {
+                    if(!isHidden ) {
                         LCD.write(key.toChar())
                     }
                     else{
                         LCD.write("*")
                     }
-                } else if (key == '*'.code) {
+                }
+                else if (key == '*'.code) {
                     clearInput = true // Set the flag to clear the input
                     break
                 } else {
